@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .video-container {
+      position: relative;
+      width: 80%;
+      max-width: 900px;
+      background-color: #111;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      border: 5px solid #87ceeb;
+    }
+
+    .video-container::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border: 3px dashed #ffffff;
+      border-radius: 20px;
+      pointer-events: none;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0.8;
+      }
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .back-button {
+      background-color: #87ceeb;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #4682b4;
+      transform: translateY(-3px);
+    }
+
+    .back-button:active {
+      background-color: #3a6ba0;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Add video title and artist elements here -->
+  <h2 id="videoTitle" style="color: #fff; text-align: center;"></h2>
+  <p id="videoArtist" style="color: #ccc; text-align: center;"></p>
+
+  <div class="video-container">
+    <video controls id="videoPlayer"></video>
+  </div>
+
+  <button class="back-button" onclick="window.location.href='mp3.html';">Back</button>
+
+  <script>
+    // Get URL parameters from the query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const video = decodeURIComponent(urlParams.get('video'));
+    const title = decodeURIComponent(urlParams.get('title'));
+    const artist = decodeURIComponent(urlParams.get('artist'));
+
+    // Use these values to display the content on the page
+    document.getElementById('videoTitle').textContent = title;
+    document.getElementById('videoArtist').textContent = artist;
+    document.getElementById('videoPlayer').src = video;
+  </script>
+
+</body>
+</html>
